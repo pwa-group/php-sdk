@@ -16,6 +16,7 @@ class PWA
     private string $id;
     private string $alias;
     private string $name;
+    private string $domain;
     private int $status;
     private array $tags;
     private Tracker|null $tracker = null;
@@ -34,6 +35,7 @@ class PWA
         $this->id = (string)($datum['_id'] ?? $datum['id']);
         $this->alias = (string)$datum['alias'];
         $this->name = (string)$datum['name'];
+        $this->domain = (string)$datum['domain'];
         $this->images = (int)$datum['images'];
         $this->status = (int)$datum['status'];
         $this->vertical = (int)$datum['vertical'];
@@ -64,6 +66,11 @@ class PWA
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getDomain(): string
+    {
+        return $this->domain;
     }
 
     public function getStatus(): int
