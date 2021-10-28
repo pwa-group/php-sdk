@@ -3,11 +3,11 @@
 namespace PWAGroup\PWAs;
 
 use PWAGroup\Auth;
-use PWAGroup\Connector;
+use PWAGroup\Client;
 use PWAGroup\Dictionary;
 use PWAGroup\Models\PWA;
 
-class Pages extends Connector
+class Pages extends Client
 {
     private array $filters = [];
     private int $count = 0;

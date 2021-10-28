@@ -3,10 +3,10 @@
 namespace PWAGroup\PWAs;
 
 use PWAGroup\Auth;
-use PWAGroup\Connector;
+use PWAGroup\Client;
 use PWAGroup\Dictionary;
 
-class PWA extends Connector
+class PWA extends Client
 {
     public function __construct(public Auth $auth)
     {

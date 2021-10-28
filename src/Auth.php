@@ -2,7 +2,7 @@
 
 namespace PWAGroup;
 
-class Auth extends Connector
+class Auth extends Client
 {
     private string $accessToken = '';
 
@@ -13,6 +13,7 @@ class Auth extends Connector
         $body = (string)$response->getBody();
         $body = json_decode($body, true);
         $this->accessToken = (string)$body['accessToken'];
+        $this->setClient(null);
     }
 
     public function getAuthHeader(): array
