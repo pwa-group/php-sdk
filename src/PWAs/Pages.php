@@ -2,20 +2,20 @@
 
 namespace PWAGroup\PWAs;
 
-use GuzzleHttp\Client;
 use PWAGroup\Auth;
+use PWAGroup\Connector;
 use PWAGroup\Dictionary;
+use PWAGroup\Models\PWA;
 
-class Pages
+class Pages extends Connector
 {
-    private Client $client;
     private array $filters = [];
     private int $count = 0;
     private int $pageIndex = 1;
 
     public function __construct(public Auth $auth, public int $pageSize = 20)
     {
-        $this->client = new Client(['base_uri' => Dictionary::API_BASE_URI, 'timeout' => 5.0]);
+        parent::__construct();
     }
 
     /**
@@ -70,15 +70,15 @@ class Pages
             'pageSize' => $this->pageSize,
             'pageIndex' => $this->pageIndex
         ]);
-        $response = $this->client->request('GET', Dictionary::API_ENDPOINT_PWAS, [
+        $response = $this->getClient()->request('GET', Dictionary::API_ENDPOINT_PWAS, [
             'query' => $query,
             'headers' => $this->auth->getAuthHeader()
         ]);
         $body = (string)$response->getBody();
-        $body = json_decode($body, false);
-        $this->count = $body?->itemsCount;
+        $body = json_decode($body, true);
+        $this->count = $body['itemsCount'];
         $PWAs = [];
-        foreach ($body?->data as $datum) {
+        foreach ($body['data'] as $datum) {
             $PWAs[] = new PWA($datum);
         }
         return $PWAs;
