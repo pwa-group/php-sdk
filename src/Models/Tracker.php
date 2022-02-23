@@ -8,9 +8,7 @@ class Tracker
 
     public function __construct(array $datum)
     {
-        foreach ($datum['filters'] as $filter) {
-            $this->locales[] = (string)$filter['_id'];
-        }
+        $this->locales = $datum['filters'];
     }
 
     public function getLocales(): array
